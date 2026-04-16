@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-import bcrypt
+#import bcrypt
 
 from app.db import get_connexion
 
@@ -19,6 +19,16 @@ class RegisterIn(BaseModel):
 class LoginIn(BaseModel):
     login: str
     password: str
+
+@router.get("/me")
+def get_me():
+    # Pour l'instant, on renvoie une structure simple
+    # Tu pourras plus tard extraire le token depuis les headers pour vérifier la session
+    return {
+        "user_id": 1, 
+        "role": "admin", 
+        "login": "test_user"
+    }
 
 @router.post("/register")
 def register(data: RegisterIn):
